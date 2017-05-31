@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SignUpForm from './SignUpForm';
+import axios from 'axios';
 
 class SignUpPage extends React.Component {
   /**
@@ -53,35 +54,47 @@ class SignUpPage extends React.Component {
     const password = encodeURIComponent(this.state.instructor.password);
     const formData = `fullName=${fullName}&userName=${userName}&password=${password}`;
 
+    axios
+      .post('/instructors', {
+        fullName: fullName,
+        userName: userName,
+        password: password,
+      })
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
     // create an AJAX request
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        // success
-        console.log('fullName:' + fullName);
-        console.log('userName:' + userName);
-        console.log('password:' + password);
-        // change the component-container state
-        this.setState({
-          errors: {},
-        });
-
-        console.log('The form is valid');
-      } else {
-        // failure
-
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
-        this.setState({
-          errors,
-        });
-      }
-    });
-    xhr.send(formData);
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('post', '/');
+    // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // xhr.responseType = 'json';
+    // xhr.addEventListener('load', () => {
+    //   if (xhr.status === 200) {
+    //     // success
+    //     console.log('fullName:' + fullName);
+    //     console.log('userName:' + userName);
+    //     console.log('password:' + password);
+    //     // change the component-container state
+    //     this.setState({
+    //       errors: {},
+    //     });
+    //
+    //     console.log('The form is valid');
+    //   } else {
+    //     // failure
+    //
+    //     const errors = xhr.response.errors ? xhr.response.errors : {};
+    //     errors.summary = xhr.response.message;
+    //
+    //     this.setState({
+    //       errors,
+    //     });
+    //   }
+    // });
+    // xhr.send(formData);
   }
 
   /**
