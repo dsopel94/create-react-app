@@ -13,6 +13,7 @@ const routes = (
     <div>
       <Route exact path="/" component={SignUpPage} />
       <Route path="/login" component={LoginPage} />
+      <Route path="/instructors" />
     </div>
   </BrowserRouter>
 );

@@ -20,7 +20,7 @@ switch (script) {
   case 'start':
   case 'test': {
     const result = spawn.sync(
-      'node',
+      'node packages\react-scripts\template\src\server\index.js',
       [require.resolve('../scripts/' + script)].concat(args),
       { stdio: 'inherit' }
     );

@@ -1,19 +1,21 @@
-import { Router } from 'express';
-import * as InstructorController from '../controllers/instructor.controller';
-const router = new Router();
-
-// Get all Posts
-router.route('/instructors').get(InstructorController.getInstructors);
+const InstructorController = require('../controllers/instructor.controller');
+const express = require('express');
+const router = new express.Router();
+//Get all Posts
+router.get('/', InstructorController.getInstructors);
 
 // Get one post by cuid
-router.route('/instructors/:cuid').get(InstructorController.getInstructor);
+router.route('/:cuid').get(InstructorController.getInstructor);
 
 // Add a new Post
-router.route('/instructors').post(InstructorController.addInstructor);
+router.route('/').post(InstructorController.addInstructor);
 
 // Delete a post by cuid
-router
-  .route('/instructors/:cuid')
-  .delete(InstructorController.deleteInstructor);
+router.route('/:cuid').delete(InstructorController.deleteInstructor);
 
-export default router;
+module.exports = router;
+//
+// router.get('/instructors', InstructorController.getInstructors);
+// router.post('/instructors', InstructorController.addInstructor);
+// router.delete('/instructors/:id', InstructorController.deleteInstructor);
+// router.get('/instructors/:id', InstructorController.getInstructor);

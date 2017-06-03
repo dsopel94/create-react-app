@@ -1,51 +1,51 @@
-import Instructor from '../models/instructor';
-import cuid from 'cuid';
+const Instructor = require('../models/instructor');
+const cuid = require('cuid');
 // import slug from 'limax';
-import sanitizeHtml from 'sanitize-html';
+const sanitizeHtml = require('sanitize-html');
 /**
  * Get all Instructors
  * @param req
  * @param res
  * @returns void
  */
-export function getInstructors(req, res) {
-  Instructor.find().exec((err, instructors) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ instructors });
+exports.getInstructors = function(req, res) {
+  console.log('!');
+  Instructor.find().exec().then(instructors => {
+    res.json({
+      instructors: instructors.map(instructor => instructor.apiRepr()),
+    });
+    res.send('message');
   });
-}
-export function addInstructor(req, res) {
-  if (
-    !req.body.instructor.fullName ||
-    !req.body.instructor.username ||
-    !req.body.instructor.password
-  ) {
-    res.status(403).end();
-  }
-  const newInstructor = new Instructor(req.body.instructor);
+};
+exports.addInstructor = function(req, res) {
+  const newInstructor = new Instructor({
+    userName: sanitizeHtml(req.body.userName),
+    fullName: sanitizeHtml(req.body.fullName),
+    password: sanitizeHtml(req.body.password),
+  });
+  newInstructor.save();
+  res.status(201).json(newInstructor);
+  // .then(function() {
+  //   console.log("Hit this function")
+  //   res.json(newInstructor)
+  // }, function(err) {
+  //   console.log("Hit the error function")
+  //   res.status(500).send(err);
+  //   // want to handle errors here
+  // });
   // Let's sanitize inputs
-  newInstructor.username = sanitizeHtml(newInstructor.username);
-  newInstructor.password = sanitizeHtml(newInstructor.password);
-  newInstructor.fullName = sanitizeHtml(newInstructor.fullName);
-  newInstructor.cuid = cuid();
-  newInstructor.save((err, saved) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ post: saved });
-  });
-  return res.json({ message: 'posted' });
-}
+  //if (err) {
+  //res.json({ newInstructor: 'saved' });
+};
 
 /**
  * Get a single post
  * @param req
+ //}
  * @param res
  * @returns void
  */
-export function getInstructor(req, res) {
+exports.getInstructor = function(req, res) {
   Instructor.findOne({ cuid: req.params.cuid }).exec((err, instructor) => {
     if (err) {
       res.status(500).send(err);
@@ -53,7 +53,7 @@ export function getInstructor(req, res) {
     res.json({ instructor });
   });
   return res.json({ message: 'got Instructor' });
-}
+};
 
 /**
  * Delete a post
@@ -61,7 +61,7 @@ export function getInstructor(req, res) {
  * @param res
  * @returns void
  */
-export function deleteInstructor(req, res) {
+exports.deleteInstructor = function(req, res) {
   Instructor.findOne({ cuid: req.params.cuid }).exec((err, instructor) => {
     if (err) {
       res.status(500).send(err);
@@ -71,4 +71,4 @@ export function deleteInstructor(req, res) {
     });
   });
   return res.status(200).end();
-}
+};
