@@ -1,6 +1,7 @@
 const Instructor = require('../models/instructor');
 const cuid = require('cuid');
 // import slug from 'limax';
+const path = require('path');
 const sanitizeHtml = require('sanitize-html');
 /**
  * Get all Instructors
@@ -11,10 +12,14 @@ const sanitizeHtml = require('sanitize-html');
 exports.getInstructors = function(req, res) {
   console.log('!');
   Instructor.find().exec().then(instructors => {
-    res.json({
-      instructors: instructors.map(instructor => instructor.apiRepr()),
-    });
-    res.send('message');
+    let correctPath = __dirname;
+    correctPath = correctPath.replace('packages/', '');
+    console.log(correctPath, path.dirName, path.baseName);
+    res.sendFile(__dirname + '../../src/LoginPage/LoginPage.html');
+    // // res.json({
+    // //   instructors: instructors.map(instructor => instructor.apiRepr()),
+    // // });
+    // res.send('message');
   });
 };
 exports.addInstructor = function(req, res) {
