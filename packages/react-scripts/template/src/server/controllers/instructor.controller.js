@@ -1,7 +1,7 @@
+const path = require('path');
 const Instructor = require('../models/instructor');
 const cuid = require('cuid');
 // import slug from 'limax';
-const path = require('path');
 const sanitizeHtml = require('sanitize-html');
 /**
  * Get all Instructors
@@ -15,7 +15,9 @@ exports.getInstructors = function(req, res) {
     let correctPath = __dirname;
     correctPath = correctPath.replace('packages/', '');
     console.log(correctPath, path.dirName, path.baseName);
-    res.sendFile(__dirname + '../../src/LoginPage/LoginPage.html');
+    res.sendFile('LoginPage.html', {
+      root: '../../projects/create-react-app/packages/react-scripts/template/src/LoginPage',
+    });
     // // res.json({
     // //   instructors: instructors.map(instructor => instructor.apiRepr()),
     // // });

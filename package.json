@@ -7,7 +7,7 @@
     "e2e": "tasks/e2e-simple.sh",
     "postinstall": "lerna bootstrap && cd packages/react-error-overlay/ && npm run build:prod",
     "publish": "tasks/release.sh",
-    "start": "node packages/react-scripts/scripts/start.js",
+    "start": "node packages/react-scripts/template/src/server/index.js",
     "test": "node packages/react-scripts/scripts/test.js --env=jsdom",
     "format": "prettier --trailing-comma es5 --single-quote --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
     "precommit": "lint-staged"
@@ -32,7 +32,9 @@
     "mongoose": "^4.10.4",
     "node": "0.0.0",
     "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "prettier": "^0.21.0",
     "prop-types": "^15.5.10",
     "proxy": "http://localhost:3000/",
