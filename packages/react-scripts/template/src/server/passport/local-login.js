@@ -8,20 +8,20 @@ const config = require('../config/main');
  */
 module.exports = new LocalStrategy(
   {
-    usernameField: 'userName',
+    usernameField: 'username',
     passwordField: 'password',
     session: false,
     passReqToCallback: true,
   },
-  (req, userName, password, done) => {
+  (req, username, password, done) => {
     const instructorData = {
-      userName: userName.trim(),
+      username: username.trim(),
       password: password.trim(),
     };
 
     // find a user by email address
     return Instructor.findOne(
-      { userName: userData.userName },
+      { username: userData.username },
       (err, instructor) => {
         if (err) {
           return done(err);
@@ -56,7 +56,7 @@ module.exports = new LocalStrategy(
             // create a token string
             const token = jwt.sign(payload, config.jwtSecret);
             const data = {
-              userName: instructor.userName,
+              username: instructor.username,
             };
 
             return done(null, token, data);

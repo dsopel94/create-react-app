@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config/main');
 const instructors = require('./routes/instructor.routes');
+logger = require('morgan');
+const router = require('./routes/router');
 // const home = require('./routse/home.routes')
 const passport = require('passport');
 
@@ -16,7 +18,6 @@ function runServer(databaseUrl = config.dbUri, port = '55631') {
       if (err) {
         return reject(err);
       }
-
       server = app
         .listen(port, function() {
           console.log(`Your app is listening on port ${port}`);
@@ -35,8 +36,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/instructors', instructors);
+app.use('/api/register', router);
+app.use('/api/login', router);
+app.use(logger('dev'));
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials'
+  );
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 // app.use('/', home)
 app.use(passport.initialize());
+router(app);
 
 const localSignupStrategy = require('./passport/local-signup');
 const localLoginStrategy = require('./passport/local-login');

@@ -17,13 +17,13 @@ const LoginForm = (
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errors.summary && <p className="error-message">{errors.summary}</p>}
       <div className="field-line">
-        <label htmlFor="userName">Username:</label>
+        <label htmlFor="username">Username:</label>
         <input
-          id="userName"
-          name="userName"
-          errorText={errors.userName}
+          id="username"
+          name="username"
+          errorText={errors.username}
           onChange={onChange}
-          value={instructor.userName}
+          value={instructor.username}
         />
       </div>
       <div className="field-line">

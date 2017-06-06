@@ -25,12 +25,12 @@ const SignUpForm = (
         />
       </div>
       <div className="field-line">
-        <label htmlFor="userName">Username:</label>
+        <label htmlFor="username">Username:</label>
         <input
-          id="userName"
-          name="userName"
+          id="username"
+          name="username"
           onChange={onChange}
-          value={instructor.userName}
+          value={instructor.username}
         />
       </div>
       <div className="field-line">

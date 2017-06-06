@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 const instructorSchema = new Schema({
   fullName: String,
-  userName: String,
+  username: String,
   password: String,
 });
 
@@ -24,23 +24,18 @@ instructorSchema.methods.comparePassword = function comparePassword(
 //   ).then(() => next());
 // });
 
-instructorSchema.pre('save', function saveHook(next) {
-  const instructor = this;
+instructorSchema.pre('save', function(next) {
+  const instructor = this, SALT_FACTOR = 5;
 
   if (!instructor.isModified('password')) return next();
 
-  return bcrypt.genSalt((saltError, salt) => {
-    if (saltError) {
-      return next(saltError);
-    }
+  bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+    if (err) return next(err);
 
-    return bcrypt.hash(instructor.password, salt, (hashError, hash) => {
-      if (hashError) {
-        return next(hashError);
-      }
+    bcrypt.hash(instructor.password, salt, null, function(err, hash) {
+      if (err) return next(err);
       instructor.password = hash;
-
-      return next();
+      next();
     });
   });
 });
@@ -49,9 +44,13 @@ instructorSchema.methods.apiRepr = function() {
   return {
     id: this._id,
     fullName: this.fullName,
-    userName: this.userName,
+    username: this.username,
     password: this.password,
   };
+};
+
+instructorSchema.methods.comparePassword = function(candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, cb);
 };
 
 const Instructor = mongoose.model('Instructor', instructorSchema);

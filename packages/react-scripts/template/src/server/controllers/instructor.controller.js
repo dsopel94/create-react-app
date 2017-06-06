@@ -26,7 +26,7 @@ exports.getInstructors = function(req, res) {
 };
 exports.addInstructor = function(req, res) {
   const newInstructor = new Instructor({
-    userName: sanitizeHtml(req.body.userName),
+    username: sanitizeHtml(req.body.username),
     fullName: sanitizeHtml(req.body.fullName),
     password: sanitizeHtml(req.body.password),
   });

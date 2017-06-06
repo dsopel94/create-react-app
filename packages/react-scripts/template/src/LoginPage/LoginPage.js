@@ -31,9 +31,9 @@ class LoginPage extends React.Component {
     event.preventDefault();
 
     // create a string for an HTTP body message
-    const userName = encodeURIComponent(this.state.instructor.userName);
+    const username = encodeURIComponent(this.state.instructor.username);
     const password = encodeURIComponent(this.state.instructor.password);
-    const formData = `userName=${userName}&password=${password}`;
+    const formData = `username=${username}&password=${password}`;
     // create an AJAX request
     // const xhr = new XMLHttpRequest();
     // xhr.open('post', '/auth/login');
