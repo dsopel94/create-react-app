@@ -16,7 +16,7 @@ const localLogin = new LocalStrategy(function(username, password, done) {
       });
     }
 
-    instructor.comparePassword(password, function(err, isMatch) {
+    Instructor.comparePassword(password, function(err, isMatch) {
       if (err) {
         return done(err);
       }
