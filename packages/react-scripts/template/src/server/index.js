@@ -10,6 +10,9 @@ const router = require('./routes/router');
 // const home = require('./routse/home.routes')
 const passport = require('passport');
 
+app.use(express.static('./server'));
+app.use(express.static('../dist'));
+
 // Database Setup
 // mongoose.connect(config.dbUri);
 function runServer(databaseUrl = config.dbUri, port = '55631') {
@@ -38,6 +41,7 @@ app.use(cors());
 app.use('/instructors', instructors);
 app.use('/api/register', router);
 app.use('/api/login', router);
+app.use('/', instructors);
 app.use(logger('dev'));
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

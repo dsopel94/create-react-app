@@ -22,10 +22,12 @@ const store = createStoreWithMiddleware(reducers);
 const routes = (
   <BrowserRouter>
     <div>
-      <Route exact path="/" component={SignUpPage} />
+      <Provider store={store}>
+        <Route exact path="/" component={SignUpPage} />
+      </Provider>
       <Route path="/login" component={LoginPage} />
-      <Route path="/dashboard" component={Dashboard} />
       <Route path="/instructors" />
+
     </div>
   </BrowserRouter>
 );

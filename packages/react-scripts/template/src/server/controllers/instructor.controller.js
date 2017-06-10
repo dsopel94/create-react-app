@@ -15,9 +15,9 @@ exports.getInstructors = function(req, res) {
     let correctPath = __dirname;
     correctPath = correctPath.replace('packages/', '');
     console.log(correctPath, path.dirName, path.baseName);
-    res.sendFile('LoginPage.html', {
-      root: '../../projects/create-react-app/packages/react-scripts/template/src/LoginPage',
-    });
+    // res.sendFile('index.html', {
+    //   root: '../../projects/create-react-app/packages/react-scripts/template/public',
+    // });
     // // res.json({
     // //   instructors: instructors.map(instructor => instructor.apiRepr()),
     // // });

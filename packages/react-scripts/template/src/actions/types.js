@@ -1,6 +1,9 @@
 export const AUTH_USER = 'auth_user',
   UNAUTH_USER = 'unauth_user',
   AUTH_ERROR = 'auth_error',
+  REGISTER_USER_REQUEST = 'register_user_request',
+  REGISTER_USER_SUCCESS = 'register_user_success',
+  REGISTER_USER_FAILURE = 'register_user_failure',
   FORGOT_PASSWORD_REQUEST = 'forgot_password_request',
   RESET_PASSWORD_REQUEST = 'reset_password_request',
   PROTECTED_TEST = 'protected_test';
