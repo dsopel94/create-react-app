@@ -49,11 +49,10 @@ class SignUpPage extends React.Component {
     const fullName = this.state.instructor.fullName;
     const username = this.state.instructor.username;
     const password = this.state.instructor.password;
-
-    this.dispatch(actions.registerUser(username, fullName, password));
+    this.props.dispatch(actions.registerUser(username, fullName, password));
   };
 
-  // let regUser;
+  // let this.hacky;
   componentDidMount() {
     // this.props.dispatch(actions.registerUser(username,fullName,password));
     /**
@@ -73,10 +72,12 @@ class SignUpPage extends React.Component {
     );
   }
 }
-// const mapStateToProps = (state, props) => ({
-//   username: state.instructor.username,
-//   password: state.instructor.password,
-//   fullName: state.instructor.fullName
-// })
-// export default connect(mapStateToProps)(SignUpPage);
-export default SignUpPage;
+const mapStateToProps = (state, props) => {
+  return {
+    username: state.username,
+    password: state.password,
+    fullName: state.fullName,
+  };
+};
+
+export default connect(mapStateToProps)(SignUpPage);

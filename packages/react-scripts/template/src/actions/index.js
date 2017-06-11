@@ -45,7 +45,7 @@ export const registerUser = (
   return function(dispatch) {
     console.log('This is getting called!');
     axios
-      .post('${API_URL}/auth/register', {
+      .post('http://localhost:3001/api/auth/register', {
         username: username,
         fullName: fullName,
         password: password,
