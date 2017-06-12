@@ -3,6 +3,9 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   PROTECTED_TEST,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -10,6 +13,10 @@ const INITIAL_STATE = {
   message: '',
   content: '',
   authenticated: false,
+  authenticating: false,
+  username: '',
+  fullName: '',
+  password: '',
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -22,6 +29,31 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, error: action.payload };
     case PROTECTED_TEST:
       return { ...state, content: action.payload };
+    case LOGIN_USER_REQUEST:
+      return {
+        ...state,
+        fullName: action.payload,
+        username: action.payload,
+        password: action.payload,
+        authenticating: true,
+      };
+    case LOGIN_USER_SUCCESS:
+      return {
+        ...state,
+        fullName: action.fullName,
+        username: action.payload,
+        password: action.payload,
+        authenticating: false,
+        authenticated: true,
+      };
+    case LOGIN_USER_FAILURE:
+      return {
+        ...state,
+        username: action.payload,
+        password: action.payload,
+        authenticating: false,
+        authenticated: false,
+      };
   }
 
   return state;

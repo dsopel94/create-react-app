@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import LoginForm from './LoginForm';
+import { connect } from 'react-redux';
+import * as actions from '../actions/index';
 
 class LoginPage extends React.Component {
   /**
@@ -12,8 +14,10 @@ class LoginPage extends React.Component {
     this.state = {
       errors: {},
       instructor: {
-        email: '',
+        username: '',
         password: '',
+        isAuthenticating: 'false',
+        isAuthenticating: 'false',
       },
     };
 
@@ -31,42 +35,9 @@ class LoginPage extends React.Component {
     event.preventDefault();
 
     // create a string for an HTTP body message
-    const username = encodeURIComponent(this.state.instructor.username);
-    const password = encodeURIComponent(this.state.instructor.password);
-    const formData = `username=${username}&password=${password}`;
-    // create an AJAX request
-    // const xhr = new XMLHttpRequest();
-    // xhr.open('post', '/auth/login');
-    // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // xhr.responseType = 'json';
-    // xhr.addEventListener('load', () => {
-    //   if (xhr.status === 200) {
-    //     // success
-    //
-    //     // change the component-container state
-    //     this.setState({
-    //       errors: {}
-    //     });
-    //
-    //     // save the token
-    //     Auth.authenticateUser(xhr.response.token);
-    //
-    //
-    //     // change the current URL to /
-    //     this.context.router.replace('/');
-    //   } else {
-    //     // failure
-    //
-    //     // change the component state
-    //     const errors = xhr.response.errors ? xhr.response.errors : {};
-    //     errors.summary = xhr.response.message;
-    //
-    //     this.setState({
-    //       errors
-    //     });
-    //   }
-    // });
-    // xhr.send(formData);
+    const username = this.state.instructor.username;
+    const password = this.state.instructor.password;
+    this.props.dispatch(actions.loginUser(username, password));
   }
 
   /**
@@ -100,9 +71,11 @@ class LoginPage extends React.Component {
   }
 }
 
-// LoginPage.contextTypes = {
-//   router: PropTypes.object.isRequired,
-//   history: PropTypes.object.isRequired
-// };
+const mapStateToProps = (state, props) => {
+  return {
+    username: state.username,
+    password: state.password,
+  };
+};
 
-export default LoginPage;
+export default connect(mapStateToProps)(LoginPage);

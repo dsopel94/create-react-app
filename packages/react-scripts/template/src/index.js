@@ -13,6 +13,7 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import reducers from './reducers/index';
 import { AUTH_USER } from './actions/types';
+import { Router } from 'react-router';
 
 // Import stylesheets like this, if you choose: import './public/stylesheets/base.scss';
 
@@ -21,14 +22,12 @@ const store = createStoreWithMiddleware(reducers);
 
 const routes = (
   <BrowserRouter>
-    <div>
-      <Provider store={store}>
+    <Provider store={store}>
+      <div>
+        <Route exact path="/login" component={LoginPage} />
         <Route exact path="/" component={SignUpPage} />
-      </Provider>
-      <Route path="/login" component={LoginPage} />
-      <Route path="/instructors" />
-
-    </div>
+      </div>
+    </Provider>
   </BrowserRouter>
 );
 

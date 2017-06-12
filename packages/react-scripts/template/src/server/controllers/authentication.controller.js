@@ -15,6 +15,7 @@ function generateToken(instructor) {
 function setInstructorInfo(request) {
   return {
     _id: request._id,
+    fullName: request.fullName,
     username: request.username,
     password: request.password,
   };
@@ -43,7 +44,19 @@ exports.login = function(req, res, next) {
         if (err) {
           return err;
         } else if (matches) {
-          console.log('The password is correct ');
+          const currentInstructor = {
+            password: user.password,
+            username: user.username,
+            fullName: user.fullName,
+            _id: user._id,
+          };
+
+          let instructorInfo = setInstructorInfo(currentInstructor);
+
+          res.status(200).json({
+            token: 'JWT ' + generateToken(instructorInfo),
+            instructor: instructorInfo,
+          });
         } else {
           console.log('The password doesnt match');
         }
@@ -97,11 +110,6 @@ exports.register = function(req, res, next) {
       if (err) {
         return next(err);
       }
-
-      // Subscribe member to Mailchimp list
-      // mailchimp.subscribeToNewsletter(user.email);
-
-      // Respond with JWT if user was created
 
       let instructorInfo = setInstructorInfo(instructor);
 

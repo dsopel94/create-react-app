@@ -42,6 +42,7 @@ app.use('/instructors', instructors);
 app.use('/api/register', router);
 app.use('/api/login', router);
 app.use('/', instructors);
+app.use('/protected', router);
 app.use(logger('dev'));
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
