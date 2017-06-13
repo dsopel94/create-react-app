@@ -5,7 +5,31 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 
+// const localLogin = new LocalStrategy(function(username, password, done) {
+//   Instructor.findOne({ username: username }, function(err, instructor) {
+//     if (err) {
+//       return done(err);
+//     }
+//     if (!instructor) {
+//       return done(null, false, {
+//         error: 'Your login details could not be verified. Please try again.',
+//       });
+//     }
+//
+//     Instructor.methods.comparePassword(password, function(err, isMatch) {
+//       if (err) {
+//         return done(err);
+//       }
+//       if (!isMatch) {
+//         return done(null, false, {
+//           error: 'Your login details could not be verified. Please try again.',
+//         });
+//       }
+//
+//       return done(null, instructor);
+//     });
 const localLogin = new LocalStrategy(function(username, password, done) {
+  console.log('This is getting called!');
   Instructor.findOne({ username: username }, function(err, instructor) {
     if (err) {
       return done(err);
@@ -16,7 +40,7 @@ const localLogin = new LocalStrategy(function(username, password, done) {
       });
     }
 
-    Instructor.comparePassword(password, function(err, isMatch) {
+    instructor.comparePassword(password, function(err, isMatch) {
       if (err) {
         return done(err);
       }
@@ -25,7 +49,7 @@ const localLogin = new LocalStrategy(function(username, password, done) {
           error: 'Your login details could not be verified. Please try again.',
         });
       }
-
+      console.log('Success!');
       return done(null, instructor);
     });
   });

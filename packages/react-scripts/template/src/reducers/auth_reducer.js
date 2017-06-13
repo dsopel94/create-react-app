@@ -20,6 +20,7 @@ const INITIAL_STATE = {
 };
 
 export default function(state = INITIAL_STATE, action) {
+  console.log('anything?');
   switch (action.type) {
     case AUTH_USER:
       return { ...state, error: '', message: '', authenticated: true };
@@ -32,17 +33,19 @@ export default function(state = INITIAL_STATE, action) {
     case LOGIN_USER_REQUEST:
       return {
         ...state,
-        fullName: action.payload,
-        username: action.payload,
-        password: action.payload,
+        fullName: action.fullName,
+        username: action.userName,
+        password: action.password,
         authenticating: true,
       };
     case LOGIN_USER_SUCCESS:
+      console.log(';', action.fullName);
+      console.log(';;', action);
       return {
         ...state,
         fullName: action.fullName,
-        username: action.payload,
-        password: action.payload,
+        username: action.username,
+        password: action.password,
         authenticating: false,
         authenticated: true,
       };

@@ -4,7 +4,7 @@ import App from './App';
 import { Route, Switch } from 'react-router';
 import SignUpPage from './SignUpPage/SignUpPage';
 import LoginPage from './LoginPage/LoginPage';
-import Dashboard from './DashboardPage/DashboardPage';
+import DashboardPage from './DashboardPage/DashboardPage';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
@@ -26,6 +26,7 @@ const routes = (
       <div>
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/" component={SignUpPage} />
+        <Route exact path="/auth/dashboard" component={DashboardPage} />
       </div>
     </Provider>
   </BrowserRouter>

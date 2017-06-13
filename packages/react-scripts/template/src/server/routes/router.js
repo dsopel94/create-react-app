@@ -22,7 +22,11 @@ module.exports = function(app) {
   authRoutes.post('/register', AuthenticationController.register);
 
   // Login route
-  authRoutes.post('/login', AuthenticationController.login);
+  authRoutes.post('/login', requireLogin, AuthenticationController.login);
+
+  authRoutes.post('/dashboard', requireAuth);
+
+  //authRoutes.post('/dashboard')
 
   // Set url for API group routes
   app.use('/api', apiRoutes);

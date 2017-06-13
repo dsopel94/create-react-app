@@ -12,9 +12,14 @@ instructorSchema.methods.comparePassword = function comparePassword(
   password,
   callback
 ) {
-  bcrypt.compare(password, this.password, callback);
-};
+  bcrypt.compare(password, this.password, function(err, isMatch) {
+    if (err) {
+      return cb(err);
+    }
 
+    cb(null, isMatch);
+  });
+};
 // instructorSchema.pre('remove', function callback(next) {
 //   const Course = mongoose.model('course');
 //   Course.update(

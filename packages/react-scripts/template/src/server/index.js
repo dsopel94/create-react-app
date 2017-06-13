@@ -40,6 +40,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/instructors', instructors);
 app.use('/api/register', router);
+app.use('/auth/dashboard', router);
 app.use('/api/login', router);
 app.use('/', instructors);
 app.use('/protected', router);

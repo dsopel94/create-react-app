@@ -4,6 +4,7 @@ import {
   UNAUTH_USER,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
+  LOGIN_USER_SUCCESS,
   REGISTER_USER_FAILURE,
   LOGIN_USER_REQUEST,
   PROTECTED_TEST,
@@ -75,12 +76,17 @@ export const loginUser = (username, password) => {
         cookies.set('instructor', response.data.instructor, { path: '/' });
         console.log(cookies.get('instructor'));
         console.log(username);
-        window.location.href = 'http://localhost:3000/' +
-          response.data.instructor._id;
         dispatch({
-          type: LOGIN_USER_REQUEST,
+          type: LOGIN_USER_SUCCESS,
           fullName: response.data.instructor.fullName,
         });
+        setTimeout(
+          function() {
+            window.location.href = 'http://localhost:3000/auth/dashboard';
+          },
+          3000
+        );
+        //window.location.href = 'http://localhost:3000/auth/dashboard'
       });
     // .catch(error => {
     //   errorHandler(dispatch, error.response, AUTH_ERROR);
