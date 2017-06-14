@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/index';
+import * as actions from '../actions/';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -8,7 +8,6 @@ class DashboardPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      fullName: '',
       course: {},
     };
     console.log(props);
@@ -18,13 +17,13 @@ class DashboardPage extends React.Component {
     console.log('ins', inst);
     inst = inst.fullName;
 
-    return <div className="greeting"> Hello, {inst}</div>;
+    return <div className="greeting"> Hello,{this.props.fullName}</div>;
   }
 }
-const mapStateToProps = state => {
+function mapStateToProps(state) {
   return {
-    fullName: state.fullName,
+    fullName: state.auth.fullName,
   };
-};
+}
 
-export default connect(mapStateToProps)(DashboardPage);
+export default connect(mapStateToProps, actions)(DashboardPage);

@@ -24,7 +24,7 @@ module.exports = function(app) {
   // Login route
   authRoutes.post('/login', requireLogin, AuthenticationController.login);
 
-  authRoutes.post('/dashboard', requireAuth);
+  authRoutes.post('/dashboard');
 
   //authRoutes.post('/dashboard')
 

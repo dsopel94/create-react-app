@@ -34,13 +34,15 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         fullName: action.fullName,
-        username: action.userName,
+        username: action.username,
         password: action.password,
         authenticating: true,
+        authenticated: false,
       };
     case LOGIN_USER_SUCCESS:
-      console.log(';', action.fullName);
-      console.log(';;', action);
+      //console.log(';', action.fullName);
+      //console.log(';;', action);
+      console.log(state, 'Success');
       return {
         ...state,
         fullName: action.fullName,
@@ -50,14 +52,15 @@ export default function(state = INITIAL_STATE, action) {
         authenticated: true,
       };
     case LOGIN_USER_FAILURE:
+      console.log(state, 'Fail');
       return {
         ...state,
-        username: action.payload,
-        password: action.payload,
+        fullName: '',
+        username: '',
+        password: '',
         authenticating: false,
         authenticated: false,
       };
   }
-
   return state;
 }

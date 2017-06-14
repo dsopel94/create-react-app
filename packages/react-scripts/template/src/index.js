@@ -21,15 +21,16 @@ const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 const routes = (
-  <BrowserRouter>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
+
       <div>
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/" component={SignUpPage} />
         <Route exact path="/auth/dashboard" component={DashboardPage} />
       </div>
-    </Provider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </Provider>
 );
 
 ReactDOM.render(routes, document.getElementById('root'));

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import LoginForm from './LoginForm';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
+import { Redirect } from 'react-router';
 
 class LoginPage extends React.Component {
   /**
@@ -16,8 +17,7 @@ class LoginPage extends React.Component {
       instructor: {
         username: '',
         password: '',
-        isAuthenticating: 'false',
-        isAuthenticating: 'false',
+        authenticated: true,
       },
     };
 
@@ -37,6 +37,7 @@ class LoginPage extends React.Component {
     // create a string for an HTTP body message
     const username = this.state.instructor.username;
     const password = this.state.instructor.password;
+    console.log(this.props.authenticated);
     this.props.dispatch(actions.loginUser(username, password));
   }
 
@@ -59,6 +60,9 @@ class LoginPage extends React.Component {
    * Render the component.
    */
   render() {
+    if (this.props.authenticated === true) {
+      return <Redirect to="/auth/dashboard" />;
+    }
     return (
       <LoginForm
         onSubmit={this.processForm}
@@ -75,6 +79,7 @@ const mapStateToProps = (state, props) => {
   return {
     username: state.auth.username,
     password: state.auth.password,
+    authenticated: state.auth.authenticated,
   };
 };
 

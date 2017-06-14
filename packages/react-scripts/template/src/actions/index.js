@@ -7,11 +7,11 @@ import {
   LOGIN_USER_SUCCESS,
   REGISTER_USER_FAILURE,
   LOGIN_USER_REQUEST,
+  LOGIN_USER_FAILURE,
   PROTECTED_TEST,
 } from './types';
 
 import axios from 'axios';
-import cookie from 'react-cookie';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -58,7 +58,7 @@ export const registerUser = (
       .then(res => {
         // cookie.save('token', res.data.token, { path: '/' });
         window.location.href = 'http://localhost:3000/login';
-        dispatch({ type: REGISTER_USER_SUCCESS });
+        // dispatch({ type: REGISTER_USER_SUCCESS });
       });
     // .catch(error => {
     //   errorHandler(dispatch, error.response, AUTH_ERROR);
@@ -69,48 +69,51 @@ export const registerUser = (
 //
 export const loginUser = (username, password) => {
   return function(dispatch) {
+    dispatch({
+      type: LOGIN_USER_REQUEST,
+      username: username,
+      password: password,
+    });
     axios
       .post(`${API_URL}/auth/login`, { username, password })
       .then(response => {
         cookies.set('token', response.data.token, { path: '/' });
         cookies.set('instructor', response.data.instructor, { path: '/' });
         console.log(cookies.get('instructor'));
-        console.log(username);
+        console.log(response.data);
         dispatch({
           type: LOGIN_USER_SUCCESS,
           fullName: response.data.instructor.fullName,
         });
-        setTimeout(
-          function() {
-            window.location.href = 'http://localhost:3000/auth/dashboard';
-          },
-          3000
-        );
         //window.location.href = 'http://localhost:3000/auth/dashboard'
+      })
+      .catch(error => {
+        dispatch({
+          type: LOGIN_USER_FAILURE,
+        });
       });
     // .catch(error => {
     //   errorHandler(dispatch, error.response, AUTH_ERROR);
     // });
   };
 };
-
-export function protectedTest() {
-  return function(dispatch) {
-    axios
-      .get(`${API_URL}/protected`, {
-        headers: { Authorization: cookie.load('token') },
-      })
-      .then(response => {
-        dispatch({
-          type: PROTECTED_TEST,
-          payload: response.data.content,
-        });
-      })
-      .catch(error => {
-        errorHandler(dispatch, error.response, AUTH_ERROR);
-      });
-  };
-}
+// export function protectedTest() {
+//   return function(dispatch) {
+//     axios
+//       .get(`${API_URL}/protected`, {
+//         headers: { Authorization: cookie.load('token') },
+//       })
+//       .then(response => {
+//         dispatch({
+//           type: PROTECTED_TEST,
+//           payload: response.data.content,
+//         });
+//       })
+//       .catch(error => {
+//         errorHandler(dispatch, error.response, AUTH_ERROR);
+//       });
+//   };
+// }
 //  export default function actions;
 // export function logoutUser() {
 //   return function (dispatch) {
