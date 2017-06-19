@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config/main');
 const instructors = require('./routes/instructor.routes');
+const courses = require('./routes/course.routes');
 logger = require('morgan');
 const router = require('./routes/router');
 // const home = require('./routse/home.routes')
@@ -39,10 +40,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/instructors', instructors);
-app.use('/api/register', router);
+//app.use('/api/register', router);
 app.use('/auth/dashboard', router);
 app.use('/api/login', router);
+//app.use('/addCourse',courses)
+app.use('/api', courses);
+//app.use('/courses', router)
+app.use('/addCourse', courses);
 app.use('/', instructors);
+app.use('/', courses);
 app.use('/protected', router);
 app.use(logger('dev'));
 app.use(function(req, res, next) {

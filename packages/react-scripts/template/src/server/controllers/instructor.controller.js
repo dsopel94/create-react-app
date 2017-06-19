@@ -1,7 +1,6 @@
 const path = require('path');
 const Instructor = require('../models/instructor');
 const cuid = require('cuid');
-// import slug from 'limax';
 const sanitizeHtml = require('sanitize-html');
 /**
  * Get all Instructors
@@ -44,7 +43,7 @@ exports.addInstructor = function(req, res) {
   //if (err) {
   //res.json({ newInstructor: 'saved' });
 };
-
+//https://www.w3schools.com/jsref/jsref_obj_date.asp
 /**
  * Get a single post
  * @param req

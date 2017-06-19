@@ -2,6 +2,7 @@ const AuthenticationController = require('../controllers/authentication.controll
 const express = require('express');
 const passportService = require('../config/passport');
 const passport = require('passport');
+//const CourseController = require('../controllers/course.controller.js')
 const app = express();
 
 const requireAuth = passport.authenticate('jwt', { session: false });

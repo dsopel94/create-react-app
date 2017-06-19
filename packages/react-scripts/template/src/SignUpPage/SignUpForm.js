@@ -14,6 +14,7 @@ const SignUpForm = (
 ) => (
   <form action="/" onSubmit={onSubmit}>
     <div className="container">
+      <h1 className="header">School Management App</h1>
       <h2 className="sign-up">Sign Up</h2>
       <div className="field-line">
         <label htmlFor="fullName">Full Name:</label>

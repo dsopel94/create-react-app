@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../style/index.css';
 
 const LoginForm = (
   {
@@ -13,6 +14,7 @@ const LoginForm = (
 ) => (
   <form action="/" onSubmit={onSubmit}>
     <div className="container">
+      <h1 className="header">School Management App</h1>
       <h2 className="login">Log In</h2>
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errors.summary && <p className="error-message">{errors.summary}</p>}

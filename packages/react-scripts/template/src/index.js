@@ -14,6 +14,8 @@ import reduxThunk from 'redux-thunk';
 import reducers from './reducers/index';
 import { AUTH_USER } from './actions/types';
 import { Router } from 'react-router';
+import AddCoursePage from './AddCoursePage/AddCourseForm';
+import CoursePage from './CoursePage/CoursePage';
 
 // Import stylesheets like this, if you choose: import './public/stylesheets/base.scss';
 
@@ -28,6 +30,8 @@ const routes = (
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/" component={SignUpPage} />
         <Route exact path="/auth/dashboard" component={DashboardPage} />
+        <Route exact path="/addCourse" component={AddCoursePage} />
+        <Route exact path="/courses/:coursename" component={CoursePage} />
       </div>
     </BrowserRouter>
   </Provider>

@@ -9,6 +9,7 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_FAILURE,
   PROTECTED_TEST,
+  ADD_COURSE,
 } from './types';
 
 import axios from 'axios';
@@ -95,6 +96,25 @@ export const loginUser = (username, password) => {
     // .catch(error => {
     //   errorHandler(dispatch, error.response, AUTH_ERROR);
     // });
+  };
+};
+//http://localhost:3001/courses
+export const addCourse = (name, instructor) => {
+  return function(dispatch) {
+    axios
+      .post(`http://localhost:3001/courses`, {
+        name: name,
+        _creator: instructor,
+      })
+      .then(response => {
+        cookies.get('instructor', response.data.instructor);
+        dispatch({
+          type: ADD_COURSE,
+          coursename: name,
+          _creator: cookies.get('instructor')._id,
+        });
+        console.log(response.data);
+      });
   };
 };
 // export function protectedTest() {

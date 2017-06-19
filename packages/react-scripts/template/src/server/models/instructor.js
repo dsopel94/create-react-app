@@ -20,14 +20,14 @@ instructorSchema.methods.comparePassword = function comparePassword(
     cb(null, isMatch);
   });
 };
-// instructorSchema.pre('remove', function callback(next) {
-//   const Course = mongoose.model('course');
-//   Course.update(
-//     { instructors: { $in: [this._id] } },
-//     { $pull: { instructors: this._id } },
-//     { multi: true }
-//   ).then(() => next());
-// });
+instructorSchema.pre('remove', function callback(next) {
+  const Course = mongoose.model('course');
+  Course.update(
+    { instructors: { $in: [this._id] } },
+    { $pull: { instructors: this._id } },
+    { multi: true }
+  ).then(() => next());
+});
 
 instructorSchema.pre('save', function(next) {
   const instructor = this, SALT_FACTOR = 5;

@@ -2,16 +2,18 @@ const InstructorController = require('../controllers/instructor.controller');
 const express = require('express');
 const router = new express.Router();
 //Get all Posts
-router.get('/', InstructorController.getInstructors);
+router.get('/instructors', InstructorController.getInstructors);
 
 // Get one post by cuid
-router.route('/:cuid').get(InstructorController.getInstructor);
+router.route('/instructors/:cuid').get(InstructorController.getInstructor);
 
 // Add a new Post
-router.route('/').post(InstructorController.addInstructor);
+router.route('/instructors').post(InstructorController.addInstructor);
 
 // Delete a post by cuid
-router.route('/:cuid').delete(InstructorController.deleteInstructor);
+router
+  .route('/instructors/:cuid')
+  .delete(InstructorController.deleteInstructor);
 
 module.exports = router;
 //
