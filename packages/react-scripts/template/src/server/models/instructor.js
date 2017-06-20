@@ -10,7 +10,7 @@ const instructorSchema = new Schema({
 
 instructorSchema.methods.comparePassword = function comparePassword(
   password,
-  callback
+  cb
 ) {
   bcrypt.compare(password, this.password, function(err, isMatch) {
     if (err) {

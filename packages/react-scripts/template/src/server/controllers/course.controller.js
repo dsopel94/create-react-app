@@ -1,7 +1,16 @@
+//const Cookies = require('universal-cookie');
 const Course = require('../models/Course');
 const cuid = require('cuid');
 const sanitizeHtml = require('sanitize-html');
 const ObjectId = require('mongodb').ObjectID;
+//const cookies = new Cookies();
+
+function setCourseInfo(request) {
+  return {
+    name: request.name,
+    _creator: request._creator,
+  };
+}
 /**
  * Get all Courses
  * @param req
@@ -16,14 +25,23 @@ exports.getCourses = function(req, res) {
     res.json({ courses });
   });
 };
-exports.addCourse = function(req, res) {
+
+exports.getAllCourses = function(req, res) {
+  Course.find().exec((err, courses) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ courses });
+  });
+};
+exports.addCourse = function(req, res, next) {
   console.log(req.body);
   if (!req.body.name) {
     res.status(403).end();
   }
   let newCourse = new Course({
     name: sanitizeHtml(req.body.name),
-    _creator: ObjectId,
+    _creator: req.body._creator,
   });
   // Let's sanitize inputs
   newCourse.name = sanitizeHtml(newCourse.name);
@@ -31,8 +49,13 @@ exports.addCourse = function(req, res) {
   newCourse.endDate = sanitizeHtml(newCourse.endDate);
   newCourse._creator = sanitizeHtml(newCourse._creator);
   newCourse.cuid = cuid();
-  newCourse.save();
-  res.status(201).json(newCourse);
+  newCourse.save(function(err, course) {
+    if (err) {
+      return next(err);
+    }
+    let courseInfo = setCourseInfo(newCourse);
+    res.status(201).send(courseInfo);
+  });
 };
 
 /**

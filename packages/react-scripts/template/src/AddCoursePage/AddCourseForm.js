@@ -27,13 +27,13 @@ class AddCoursePage extends React.Component {
     event.preventDefault();
     const name = this.state.name;
     const instructor = cookies.get('instructor')._id;
-    console.log(this.state.name);
+    console.log(cookies.get('instructor')._id);
     this.setState({
       submitted: true,
     });
     this.props.dispatch(actions.addCourse(name, instructor));
     console.log(this.props.name);
-    console.log(cookies.get('instructor')._id);
+    console.log(name, cookies.get('instructor')._id);
   }
 
   render() {

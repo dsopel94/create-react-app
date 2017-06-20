@@ -107,7 +107,7 @@ export const addCourse = (name, instructor) => {
         _creator: instructor,
       })
       .then(response => {
-        cookies.get('instructor', response.data.instructor);
+        cookies.get('instructor');
         dispatch({
           type: ADD_COURSE,
           coursename: name,
