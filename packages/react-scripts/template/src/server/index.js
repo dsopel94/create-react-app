@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const config = require('./config/main');
 const instructors = require('./routes/instructor.routes');
 const courses = require('./routes/course.routes');
+const periods = require('./routes/period.routes');
+const students = require('./routes/student.routes');
 logger = require('morgan');
 const router = require('./routes/router');
 // const home = require('./routse/home.routes')
@@ -43,12 +45,14 @@ app.use('/instructors', instructors);
 //app.use('/api/register', router);
 app.use('/auth/dashboard', router);
 app.use('/api/login', router);
+app.use('/', periods);
 //app.use('/addCourse',courses)
 app.use('/api', courses);
 //app.use('/courses', router)
 app.use('/addCourse', courses);
 app.use('/', instructors);
 app.use('/', courses);
+app.use('/', students);
 app.use('/protected', router);
 app.use(logger('dev'));
 app.use(function(req, res, next) {

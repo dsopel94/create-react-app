@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
 import CourseList from '../CourseList/CourseList.js';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 //import router from '../server/controllers/course.controller.js'
 const cookies = new Cookies();
 
@@ -14,32 +15,42 @@ class DashboardPage extends React.Component {
     this.state = {
       courses: {},
     };
-    console.log(props);
+    this.onClick = this.onClick.bind(this);
   }
 
+  onClick(event) {
+    event.preventDefault();
+    window.location = '/courses/' + event.target.id;
+  }
+  componentWillMount() {
+    //this.props.dispatch(actions.getCourses());
+  }
   componentDidMount() {
-    axios.get('http://localhost:3001/courses').then(response => {
-      const courses = response.data.courses;
-      const userIds = Object.keys(courses).map(
-        course => courses[course]._creator
-      );
-      this.setState({
-        courses: response.data.courses,
-      });
-    });
+    this.props.dispatch(actions.getCourses());
+    // axios.get('http://localhost:3001/courses').then(response => {
+    //   const courses = response.data.courses;
+    //   const userIds = Object.keys(courses).map(
+    //     course => courses[course]._creator
+    //   );
+    //   this.setState({
+    //     courses: response.data.courses,
+    //   });
+    // });
   }
   render() {
     let inst = cookies.get('instructor').fullName;
-    console.log('ins', inst);
-
-    let courseList = this.state.courses;
+    let courseList = this.props.courses;
     let courses = Object.keys(courseList).map(course => courseList[course]);
     const courseButtons = courses.map(course => {
-      return (
-        <p>
-          <button className="courses" id={course._id}>{course.name}</button>
-        </p>
-      );
+      if (cookies.get('instructor')._id == course._creator) {
+        return (
+          <p>
+            <button className="courses" onClick={this.onClick} id={course._id}>
+              {course.name}
+            </button>
+          </p>
+        );
+      }
     });
     return (
       <div>
@@ -53,11 +64,12 @@ class DashboardPage extends React.Component {
     );
   }
 }
-function mapStateToProps(state) {
+const mapStateToProps = (state, props) => {
   return {
     fullName: state.auth.fullName,
     coursename: state.course.coursename,
+    courses: state.course.courses,
   };
-}
+};
 
-export default connect(mapStateToProps, actions)(DashboardPage);
+export default connect(mapStateToProps)(DashboardPage);

@@ -23,7 +23,7 @@ instructorSchema.methods.comparePassword = function comparePassword(
 instructorSchema.pre('remove', function callback(next) {
   const Course = mongoose.model('course');
   Course.update(
-    { instructors: { $in: [this._id] } },
+    { _creator: { $in: [this._id] } },
     { $pull: { instructors: this._id } },
     { multi: true }
   ).then(() => next());

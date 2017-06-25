@@ -10,6 +10,11 @@ import {
   LOGIN_USER_FAILURE,
   PROTECTED_TEST,
   ADD_COURSE,
+  GET_COURSES,
+  GET_COURSE,
+  ADD_STUDENT,
+  GET_STUDENTS,
+  GET_STUDENT,
 } from './types';
 
 import axios from 'axios';
@@ -42,6 +47,80 @@ export function errorHandler(dispatch, error, type) {
   }
 }
 
+export function getCourse(cuid) {
+  return function(dispatch) {
+    axios.get(`http://localhost:3001/courses/${cuid}`).then(response => {
+      dispatch({
+        type: GET_COURSE,
+        payload: response.data.course,
+      });
+    });
+  };
+}
+
+export function getCourses() {
+  return function(dispatch) {
+    axios.get('http://localhost:3001/courses').then(response => {
+      dispatch({
+        type: GET_COURSES,
+        payload: response.data.courses,
+      });
+    });
+  };
+}
+
+export function getStudents() {
+  return function(dispatch) {
+    axios.get('http://localhost:3001/students').then(response => {
+      dispatch({
+        type: GET_STUDENTS,
+        payload: response.data.students,
+      });
+    });
+  };
+}
+
+export function getStudent(id) {
+  return function(dispatch) {
+    axios.get(`http://localhost:3001/students/${id}`).then(response => {
+      console.log(response.data, "What's going on here?");
+      dispatch({
+        type: GET_STUDENT,
+        payload: response.data.student,
+      });
+    });
+  };
+}
+
+export function deleteStudent(id) {
+  return function(dispatch) {
+    axios.delete(`http://localhost:3001/students/${id}`).then(response => {});
+  };
+}
+
+export function addPeriod(number) {
+  return function(dispatch) {
+    axios.post('http://localhost:3001/periods').then(response => {
+      dispatch({
+        type: ADD_COURSE,
+        payload: response.data.periods,
+      });
+    });
+  };
+}
+
+export function editCourse(id, period) {
+  return function(dispatch) {
+    axios
+      .put(`http://localhost:3001/courses/${id}`, {
+        periods: period,
+      })
+      .then(response => {
+        console.log(response.data.courses);
+      });
+  };
+}
+
 export const registerUser = (
   username,
   fullName,
@@ -67,7 +146,45 @@ export const registerUser = (
   };
 };
 
-//
+export const addStudent = (firstName, lastName, phoneNumber, courses) => {
+  return function(dispatch) {
+    axios
+      .post(`http://localhost:3001/students`, {
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        courses: courses,
+      })
+      .then(response => {
+        dispatch({
+          type: ADD_STUDENT,
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phoneNumber,
+          courses: courses,
+        });
+        window.location.href = `http://localhost:3000/courses/${courses}`;
+        console.log(window.location.href);
+        console.log(response.data.students, 'Student response');
+      });
+  };
+};
+
+export const editStudent = (firstName, lastName, phoneNumber, id) => {
+  return function(dispatch) {
+    axios
+      .put(`http://localhost:3001/students/${id}`, {
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+      })
+      .then(response => {
+        console.log(response.data.students, 'Checking after put');
+        window.location.href = `http://localhost:3000/courses/${response.data.students.courses}`;
+      });
+  };
+};
+
 export const loginUser = (username, password) => {
   return function(dispatch) {
     dispatch({
@@ -81,7 +198,6 @@ export const loginUser = (username, password) => {
         cookies.set('token', response.data.token, { path: '/' });
         cookies.set('instructor', response.data.instructor, { path: '/' });
         console.log(cookies.get('instructor'));
-        console.log(response.data);
         dispatch({
           type: LOGIN_USER_SUCCESS,
           fullName: response.data.instructor.fullName,
@@ -105,6 +221,7 @@ export const addCourse = (name, instructor) => {
       .post(`http://localhost:3001/courses`, {
         name: name,
         _creator: instructor,
+        periods: [],
       })
       .then(response => {
         cookies.get('instructor');
@@ -112,7 +229,9 @@ export const addCourse = (name, instructor) => {
           type: ADD_COURSE,
           coursename: name,
           _creator: cookies.get('instructor')._id,
+          periods: [],
         });
+        window.location.href = 'http://localhost:3000/auth/dashboard';
         console.log(response.data);
       });
   };

@@ -16,5 +16,7 @@ router.route('/courses/:cuid').delete(CourseController.deleteCourse);
 
 router.route('/dashboard').get(CourseController.getAllCourses);
 
+router.route('/courses/:cuid').put(CourseController.editCourse);
+
 module.exports = router;
 // just so that you have this file as a template

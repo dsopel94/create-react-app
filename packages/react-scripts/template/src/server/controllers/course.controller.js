@@ -64,14 +64,16 @@ exports.addCourse = function(req, res, next) {
  * @param res
  * @returns void
  */
+
 exports.getCourse = function(req, res) {
-  Course.findOne({ cuid: req.params.cuid }).exec((err, course) => {
+  console.log(res.data, "Let's try this");
+  Course.findOne({ _id: req.params.cuid }).exec((err, course) => {
+    console.log(res, 'Is this doing anything?');
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send('This is not working');
     }
-    res.json({ course });
+    res.status(200).json({ course });
   });
-  return res.json({ message: 'got Course' });
 };
 
 /**
@@ -90,4 +92,18 @@ exports.deleteCourse = function(req, res) {
     });
   });
   return res.status(200).end();
+};
+
+exports.editCourse = function(req, res) {
+  Course.findByIdAndUpdate(
+    req.params.cuid,
+    { $set: req.body },
+    function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      console.log('RESULT: ' + result);
+      res.send('Done');
+    }
+  );
 };

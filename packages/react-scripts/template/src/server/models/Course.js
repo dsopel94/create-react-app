@@ -4,6 +4,8 @@ const ObjectId = Schema.Types.ObjectId;
 
 const { Instructor } = require('./instructor');
 
+const { Student } = require('./Student');
+
 const courseSchema = new Schema({
   name: String,
   // startDate: { type: Date, default: Date.now },
@@ -17,7 +19,7 @@ const courseSchema = new Schema({
   //   type: ObjectId,
   //   ref: 'period',
   // }],
-  //periods: [{ type: ObjectIdx, ref: 'Period' }],
+  //students: [{ type: ObjectId, ref: 'Student' }],
 });
 
 const Course = mongoose.model('course', courseSchema);
