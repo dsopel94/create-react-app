@@ -15,14 +15,20 @@ class CoursePage extends React.Component {
     };
     console.log(this.props.match.params.cuid);
     this.onClick = this.onClick.bind(this);
+    this.deleteCourse = this.deleteCourse.bind(this);
   }
 
   onClick(event) {
-    event.preventDefault();
     console.log(this.state.isClicked);
     this.setState({
       isClicked: !this.state.isClicked,
     });
+  }
+
+  deleteCourse(event) {
+    const id = this.props.match.params.cuid;
+    this.props.dispatch(actions.deleteCourse(id));
+    console.log('this is working');
   }
   componentDidMount() {
     this.props.dispatch(actions.getCourse(this.props.match.params.cuid));
@@ -57,7 +63,13 @@ class CoursePage extends React.Component {
       <div>
         <h1>{this.props.course.name}</h1>
         <Link to={`/addStudent/${this.props.match.params.cuid}`}>
-          {' '}Add a new student
+          Add a new student
+        </Link>
+        <Link to={`/editCourse/${this.props.match.params.cuid}`}>
+          Edit Course Name
+        </Link>
+        <Link to={'/auth/dashboard'} onClick={this.deleteCourse}>
+          Remove this course
         </Link>
         <div className="studentList">Your students{currentStudents} </div>
       </div>

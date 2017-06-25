@@ -83,13 +83,10 @@ exports.getCourse = function(req, res) {
  * @returns void
  */
 exports.deleteCourse = function(req, res) {
-  Course.findOne({ cuid: req.params.cuid }).exec((err, course) => {
+  Course.findByIdAndRemove({ _id: req.params.cuid }).exec((err, course) => {
     if (err) {
       res.status(500).send(err);
     }
-    course.remove(() => {
-      res.status(200).end();
-    });
   });
   return res.status(200).end();
 };

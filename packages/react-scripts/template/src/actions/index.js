@@ -98,6 +98,14 @@ export function deleteStudent(id) {
   };
 }
 
+export function deleteCourse(id) {
+  return function(dispatch) {
+    axios.delete(`http://localhost:3001/courses/${id}`).then(response => {
+      window.location.href = 'http://localhost:3000/auth/dashboard';
+    });
+  };
+}
+
 export function addPeriod(number) {
   return function(dispatch) {
     axios.post('http://localhost:3001/periods').then(response => {
@@ -109,14 +117,15 @@ export function addPeriod(number) {
   };
 }
 
-export function editCourse(id, period) {
+export function editCourse(coursename, id) {
   return function(dispatch) {
     axios
       .put(`http://localhost:3001/courses/${id}`, {
-        periods: period,
+        name: coursename,
       })
       .then(response => {
         console.log(response.data.courses);
+        window.location.href = `http://localhost:3000/courses/${response.data.courses._id}`;
       });
   };
 }
