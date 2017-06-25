@@ -45,6 +45,8 @@ class CoursePage extends React.Component {
                 id={student._id}
                 phoneNumber={student.phoneNumber}
                 courses={student.courses}
+                streetAddress={student.streetAddress}
+                miscAddress={student.miscAddress}
               />
             </div>
           </p>

@@ -12,6 +12,8 @@ class EditStudentPage extends React.Component {
         firstName: '',
         lastName: '',
         phoneNumber: '',
+        streetAddress: '',
+        miscAddress: '',
       },
       isSubmitted: false,
     };
@@ -36,6 +38,8 @@ class EditStudentPage extends React.Component {
     const firstName = this.state.student.firstName;
     const lastName = this.state.student.lastName;
     const phoneNumber = this.state.student.phoneNumber;
+    const streetAddress = this.state.student.streetAddress;
+    const miscAddress = this.state.student.miscAddreess;
     const id = this.props.match.params.cuid;
     this.props.dispatch(actions.getStudent(id));
 
@@ -44,7 +48,14 @@ class EditStudentPage extends React.Component {
       isSubmitted: true,
     });
     this.props.dispatch(
-      actions.editStudent(firstName, lastName, phoneNumber, id)
+      actions.editStudent(
+        firstName,
+        lastName,
+        phoneNumber,
+        streetAddress,
+        miscAddress,
+        id
+      )
     );
   }
   render() {
@@ -79,6 +90,24 @@ class EditStudentPage extends React.Component {
                 id="phoneNumber"
                 name="phoneNumber"
                 value={this.state.phoneNumber}
+                onChange={this.updateInput}
+              />
+            </div>
+            <div className="field-line">
+              <label htmlFor="streetAddress">Street Address:</label>
+              <input
+                id="streetAddress"
+                name="streetAddress"
+                value={this.state.streetAddress}
+                onChange={this.updateInput}
+              />
+            </div>
+            <div className="field-line">
+              <label htmlFor="miscAddress">City, State, Zip:</label>
+              <input
+                id="miscAddress"
+                name="miscAddress"
+                value={this.state.miscAddress}
                 onChange={this.updateInput}
               />
             </div>

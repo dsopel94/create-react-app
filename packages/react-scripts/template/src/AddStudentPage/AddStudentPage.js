@@ -12,6 +12,8 @@ class AddStudentPage extends React.Component {
         firstName: '',
         lastName: '',
         phoneNumber: '',
+        streetAddress: '',
+        miscAddress: '',
       },
       isSubmitted: false,
     };
@@ -31,13 +33,22 @@ class AddStudentPage extends React.Component {
     const firstName = this.state.student.firstName;
     const lastName = this.state.student.lastName;
     const phoneNumber = this.state.student.phoneNumber;
+    const streetAddress = this.state.student.streetAddress;
+    const miscAddress = this.state.student.miscAddress;
     const courses = this.props.match.params.cuid;
     window.location.href = `http://localhost:3000/courses/${courses}`;
     this.setState({
       isSubmitted: true,
     });
     this.props.dispatch(
-      actions.addStudent(firstName, lastName, phoneNumber, courses)
+      actions.addStudent(
+        firstName,
+        lastName,
+        phoneNumber,
+        streetAddress,
+        miscAddress,
+        courses
+      )
     );
   }
   render() {
@@ -72,6 +83,24 @@ class AddStudentPage extends React.Component {
                 id="phoneNumber"
                 name="phoneNumber"
                 value={this.state.phoneNumber}
+                onChange={this.updateInput}
+              />
+            </div>
+            <div className="field-line">
+              <label htmlFor="streetAddress">Street Address:</label>
+              <input
+                id="streetAddress"
+                name="streetAddress"
+                value={this.state.streetAddress}
+                onChange={this.updateInput}
+              />
+            </div>
+            <div className="field-line">
+              <label htmlFor="miscAddress">City, State, Zip:</label>
+              <input
+                id="miscAddress"
+                name="miscAddress"
+                value={this.state.miscAddress}
                 onChange={this.updateInput}
               />
             </div>

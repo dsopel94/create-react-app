@@ -146,7 +146,14 @@ export const registerUser = (
   };
 };
 
-export const addStudent = (firstName, lastName, phoneNumber, courses) => {
+export const addStudent = (
+  firstName,
+  lastName,
+  phoneNumber,
+  streetAddress,
+  miscAddress,
+  courses
+) => {
   return function(dispatch) {
     axios
       .post(`http://localhost:3001/students`, {
@@ -154,6 +161,8 @@ export const addStudent = (firstName, lastName, phoneNumber, courses) => {
         lastName: lastName,
         phoneNumber: phoneNumber,
         courses: courses,
+        streetAddress: streetAddress,
+        miscAddress: miscAddress,
       })
       .then(response => {
         dispatch({
@@ -162,6 +171,8 @@ export const addStudent = (firstName, lastName, phoneNumber, courses) => {
           lastName: lastName,
           phoneNumber: phoneNumber,
           courses: courses,
+          streetAddress: streetAddress,
+          miscAddress: miscAddress,
         });
         window.location.href = `http://localhost:3000/courses/${courses}`;
         console.log(window.location.href);
@@ -170,13 +181,22 @@ export const addStudent = (firstName, lastName, phoneNumber, courses) => {
   };
 };
 
-export const editStudent = (firstName, lastName, phoneNumber, id) => {
+export const editStudent = (
+  firstName,
+  lastName,
+  phoneNumber,
+  streetAddress,
+  miscAddress,
+  id
+) => {
   return function(dispatch) {
     axios
       .put(`http://localhost:3001/students/${id}`, {
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
+        streetAddress: streetAddress,
+        miscAddress: miscAddress,
       })
       .then(response => {
         console.log(response.data.students, 'Checking after put');
@@ -232,7 +252,6 @@ export const addCourse = (name, instructor) => {
           periods: [],
         });
         window.location.href = 'http://localhost:3000/auth/dashboard';
-        console.log(response.data);
       });
   };
 };

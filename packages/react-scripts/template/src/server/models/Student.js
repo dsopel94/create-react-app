@@ -8,6 +8,8 @@ const studentSchema = new Schema({
   lastName: String,
   phoneNumber: Number,
   courses: { type: ObjectId, ref: 'Course' },
+  streetAddress: String,
+  miscAddress: String,
 });
 
 const Student = mongoose.model('student', studentSchema);

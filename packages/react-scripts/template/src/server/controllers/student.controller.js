@@ -10,6 +10,8 @@ function setStudentInfo(request) {
     lastName: request.lastName,
     phoneNumber: request.phoneNumber,
     courses: request.courses,
+    streetAddress: request.streetAddress,
+    miscAddress: request.miscAddress,
   };
 }
 /**
@@ -45,6 +47,8 @@ exports.addStudent = function(req, res, next) {
     lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
     courses: req.body.courses,
+    streetAddress: req.body.streetAddress,
+    miscAddress: req.body.miscAddress,
   });
   // Let's sanitize input
   newStudent.cuid = cuid();
@@ -52,6 +56,8 @@ exports.addStudent = function(req, res, next) {
   newStudent.lastName = sanitizeHtml(newStudent.lastName);
   newStudent.phoneNumber = sanitizeHtml(newStudent.phoneNumber);
   newStudent.courses - sanitizeHtml(newStudent.courses);
+  newStudent.streetAddress = sanitizeHtml(newStudent.streetAddress);
+  newStudent.miscAddress = sanitizeHtml(newStudent.miscAddress);
   newStudent.save(function(err, student) {
     if (err) {
       return next(err);
