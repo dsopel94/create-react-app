@@ -4,6 +4,8 @@ import * as actions from '../actions/index';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import ShowStudentInfo from '../ShowStudentInfo/ShowStudentInfo';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 class CoursePage extends React.Component {
   constructor(props, context) {
@@ -16,6 +18,7 @@ class CoursePage extends React.Component {
     console.log(this.props.match.params.cuid);
     this.onClick = this.onClick.bind(this);
     this.deleteCourse = this.deleteCourse.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   onClick(event) {
@@ -23,6 +26,11 @@ class CoursePage extends React.Component {
     this.setState({
       isClicked: !this.state.isClicked,
     });
+  }
+
+  handleLogout(event) {
+    cookies.remove('instructor');
+    cookies.remove('token');
   }
 
   deleteCourse(event) {
@@ -60,7 +68,11 @@ class CoursePage extends React.Component {
       }
     });
     return (
-      <div>
+      <div className="course-page">
+        <div className="nav-options">
+          <Link to="/auth/dashboard">Back to Your Dashboard</Link>
+          <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+        </div>
         <h1>{this.props.course.name}</h1>
         <Link to={`/addStudent/${this.props.match.params.cuid}`}>
           Add a new student

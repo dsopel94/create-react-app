@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 class AddStudentPage extends React.Component {
   constructor(props, context) {
@@ -19,6 +21,7 @@ class AddStudentPage extends React.Component {
     };
     this.updateInput = this.updateInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleLogout = this.onSubmit.bind(this);
   }
   updateInput(event) {
     const field = event.target.name;
@@ -51,12 +54,23 @@ class AddStudentPage extends React.Component {
       )
     );
   }
+
+  handleLogout() {
+    cookies.remove('instructor');
+    cookies.remove('token');
+  }
   render() {
     if (this.state.isSubmitted) {
       return <Redirect to={`/courses/${this.props.match.params.cuid}`} />;
     }
     return (
       <form action="/" onSubmit={this.onSubmit}>
+        <div className="nav-options">
+          <Link to={`/courses/${this.props.match.params.cuid}`}>
+            Back to Your Course Page
+          </Link>
+          <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+        </div>
         <div className="container">
           <div className="submitForm">
             <div className="field-line">

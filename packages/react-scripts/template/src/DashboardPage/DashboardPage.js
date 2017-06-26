@@ -16,12 +16,19 @@ class DashboardPage extends React.Component {
       courses: {},
     };
     this.onClick = this.onClick.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   onClick(event) {
     event.preventDefault();
     window.location = '/courses/' + event.target.id;
   }
+
+  handleLogout(event) {
+    cookies.remove('instructor');
+    cookies.remove('token');
+  }
+
   componentWillMount() {
     //this.props.dispatch(actions.getCourses());
   }
@@ -57,6 +64,7 @@ class DashboardPage extends React.Component {
         <div className="greeting"> Welcome Back, {inst}</div>
         <div className="addCourseLink">
           <Link to="/addCourse">Add a new course </Link>
+          <Link to="/login" onClick={this.handleLogout}>Log out </Link>
         </div>
         <div className="dashboard-your-courses"><h2>Your Courses</h2></div>
         <div className="courseList">{courseButtons}</div>

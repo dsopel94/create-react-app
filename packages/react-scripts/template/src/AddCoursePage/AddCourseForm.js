@@ -16,6 +16,7 @@ class AddCoursePage extends React.Component {
     };
     this.updateName = this.updateName.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
   updateName(event) {
     this.setState({
@@ -23,6 +24,10 @@ class AddCoursePage extends React.Component {
     });
   }
 
+  handleLogout(event) {
+    cookies.remove('instructor');
+    cookies.remove('token');
+  }
   onSubmit(event) {
     event.preventDefault();
     const name = this.state.name;
@@ -42,6 +47,10 @@ class AddCoursePage extends React.Component {
     }
     return (
       <form action="/" onSubmit={this.onSubmit}>
+        <div className="nav-options">
+          <Link to="/auth/dashboard">Back to Your Dashboard</Link>
+          <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+        </div>
         <div className="container">
           <div className="submitForm">
             <div className="field-line">
