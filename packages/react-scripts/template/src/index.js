@@ -20,6 +20,7 @@ import AddStudentPage from './AddStudentPage/AddStudentPage';
 import EditStudentPage from './EditStudentPage/EditStudentPage';
 import ShowStudentInfo from './ShowStudentInfo/ShowStudentInfo';
 import EditCoursePage from './EditCoursePage/EditCoursePage';
+import AddInfoPage from './AppInfoPage/AppInfoPage';
 
 // Import stylesheets like this, if you choose: import './public/stylesheets/base.scss';
 
@@ -39,6 +40,7 @@ const routes = (
         <Route exact path="/addStudent/:cuid" component={AddStudentPage} />
         <Route exact path="/editStudent/:cuid" component={EditStudentPage} />
         <Route exact path="/editCourse/:cuid" component={EditCoursePage} />
+        <Route exact path="/info" component={AddInfoPage} />
       </div>
     </BrowserRouter>
   </Provider>

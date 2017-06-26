@@ -51,6 +51,12 @@ const SignUpForm = (
 
       <div className="login-redirect">
         Already have an account? <Link to={'/login'}> Log in</Link>
+        <p>
+          Want more info about this app?
+          {' '}
+          <Link to={'/info'}>Click here</Link>
+          {' '}
+        </p>
       </div>
     </div>
     <Route path="/login" component={LoginPage} />
