@@ -15,6 +15,7 @@ import {
   ADD_STUDENT,
   GET_STUDENTS,
   GET_STUDENT,
+  SET_AUTHENTICATED,
 } from './types';
 
 import axios from 'axios';
@@ -69,6 +70,15 @@ export function getCourses() {
   };
 }
 
+export function setAsAuthenticated() {
+  return function(dispatch) {
+    dispatch({
+      type: SET_AUTHENTICATED,
+      authenticated: true,
+    });
+  };
+}
+
 export function getStudents() {
   return function(dispatch) {
     axios.get('http://localhost:3001/students').then(response => {
@@ -102,6 +112,10 @@ export function deleteCourse(id) {
   return function(dispatch) {
     axios.delete(`http://localhost:3001/courses/${id}`).then(response => {
       window.location.href = 'http://localhost:3000/auth/dashboard';
+      dispatch({
+        type: GET_COURSES,
+        payload: response.data.courses,
+      });
     });
   };
 }
@@ -224,8 +238,11 @@ export const loginUser = (username, password) => {
     axios
       .post(`${API_URL}/auth/login`, { username, password })
       .then(response => {
-        cookies.set('token', response.data.token, { path: '/' });
-        cookies.set('instructor', response.data.instructor, { path: '/' });
+        cookies.set('token', response.data.token, { path: '/', maxAge: 86400 });
+        cookies.set('instructor', response.data.instructor, {
+          path: '/',
+          maxAge: 86400,
+        });
         console.log(cookies.get('instructor'));
         dispatch({
           type: LOGIN_USER_SUCCESS,
@@ -236,6 +253,7 @@ export const loginUser = (username, password) => {
       .catch(error => {
         dispatch({
           type: LOGIN_USER_FAILURE,
+          error: 'Not a valid username/password combination',
         });
       });
     // .catch(error => {

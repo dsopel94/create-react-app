@@ -18,6 +18,7 @@ class LoginPage extends React.Component {
         username: '',
         password: '',
         authenticated: true,
+        errorMessage: '',
       },
     };
 
@@ -39,6 +40,12 @@ class LoginPage extends React.Component {
     const password = this.state.instructor.password;
     console.log(this.props.authenticated);
     this.props.dispatch(actions.loginUser(username, password));
+    if (!this.state.authenticated) {
+      this.setState({
+        errorMessage: 'Not a valid username/password combination',
+      });
+      console.log(this.state.errorMessage);
+    }
   }
 
   /**
@@ -70,6 +77,7 @@ class LoginPage extends React.Component {
         errors={this.state.errors}
         successMessage={this.state.successMessage}
         instructor={this.state.instructor}
+        error={this.props.error}
       />
     );
   }
@@ -80,6 +88,7 @@ const mapStateToProps = (state, props) => {
     username: state.auth.username,
     password: state.auth.password,
     authenticated: state.auth.authenticated,
+    error: state.auth.error,
   };
 };
 

@@ -20,7 +20,7 @@ class EditCoursePage extends React.Component {
   }
 
   handleLogout(event) {
-    cookies.remove('instructor');
+    //cookies.remove('instructor');
     cookies.remove('token');
   }
 
@@ -49,11 +49,17 @@ class EditCoursePage extends React.Component {
     }
     return (
       <form action="/" onSubmit={this.onSubmit}>
-        <div className="nav-options">
-          <Link to={`/courses/${this.props.match.params.cuid}`}>
-            Back to Your Course
-          </Link>
-          <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+        <div className="edit-course-nav-options">
+          <ul>
+            <li>
+              <Link to={`/courses/${this.props.match.params.cuid}`}>
+                Back to Your Course
+              </Link>
+            </li>
+            <li>
+              <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+            </li>
+          </ul>
         </div>
         <div className="container">
           <div className="submitForm">

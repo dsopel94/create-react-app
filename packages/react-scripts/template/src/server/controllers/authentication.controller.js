@@ -37,7 +37,9 @@ exports.login = function(req, res, next) {
         return console.log('Something went wrong!');
       }
       if (!user) {
-        console.log('Not a user');
+        res
+          .status(401)
+          .json({ error: 'You are not authorized to view this content.' });
         return false;
       }
       bcrypt.compare(req.body.password, user.password, function(err, matches) {

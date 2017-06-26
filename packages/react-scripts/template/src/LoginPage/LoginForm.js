@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actions from '../actions/index';
 import { Link } from 'react-router-dom';
 import '../style/index.css';
 
@@ -10,6 +12,7 @@ const LoginForm = (
     errors,
     successMessage,
     instructor,
+    error,
   }
 ) => (
   <form action="/" onSubmit={onSubmit}>
@@ -26,11 +29,13 @@ const LoginForm = (
           errorText={errors.username}
           onChange={onChange}
           value={instructor.username}
+          error={error.username}
         />
       </div>
       <div className="field-line">
         <label htmlFor="password">Password:</label>
         <input
+          type="password"
           id="password"
           name="password"
           errorText={errors.password}
@@ -55,6 +60,7 @@ LoginForm.propTypes = {
   errors: PropTypes.object.isRequired,
   successMessage: PropTypes.string.isRequired,
   instructor: PropTypes.object.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 export default LoginForm;

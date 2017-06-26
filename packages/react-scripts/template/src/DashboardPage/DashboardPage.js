@@ -14,6 +14,7 @@ class DashboardPage extends React.Component {
     super(props, context);
     this.state = {
       courses: {},
+      authenticated: true,
     };
     this.onClick = this.onClick.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
@@ -25,13 +26,14 @@ class DashboardPage extends React.Component {
   }
 
   handleLogout(event) {
-    cookies.remove('instructor');
+    //cookies.remove('instructor');
     cookies.remove('token');
+    this.setState({
+      authenticated: false,
+    });
+    window.location.href = `http://localhost:3000/login`;
   }
 
-  componentWillMount() {
-    //this.props.dispatch(actions.getCourses());
-  }
   componentDidMount() {
     this.props.dispatch(actions.getCourses());
     // axios.get('http://localhost:3001/courses').then(response => {
@@ -45,6 +47,10 @@ class DashboardPage extends React.Component {
     // });
   }
   render() {
+    if (!this.state.authenticated) {
+      window.location.href = `http://localhost:3000/login`;
+    }
+    console.log(this.state.authenticated, 'that the user is authenticated');
     let inst = cookies.get('instructor').fullName;
     let courseList = this.props.courses;
     let courses = Object.keys(courseList).map(course => courseList[course]);
@@ -62,9 +68,13 @@ class DashboardPage extends React.Component {
     return (
       <div>
         <div className="greeting"> Welcome Back, {inst}</div>
-        <div className="addCourseLink">
-          <Link to="/addCourse">Add a new course </Link>
-          <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+        <div className="dashboard-links">
+          <ul>
+            <li><Link to="/addCourse">Add a new course </Link></li>
+            <li>
+              <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+            </li>
+          </ul>
         </div>
         <div className="dashboard-your-courses"><h2>Your Courses</h2></div>
         <div className="courseList">{courseButtons}</div>
@@ -75,6 +85,7 @@ class DashboardPage extends React.Component {
 const mapStateToProps = (state, props) => {
   return {
     fullName: state.auth.fullName,
+    authenticated: state.auth.authenticated,
     coursename: state.course.coursename,
     courses: state.course.courses,
   };

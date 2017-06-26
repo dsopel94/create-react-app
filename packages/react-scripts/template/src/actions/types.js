@@ -15,4 +15,5 @@ export const AUTH_USER = 'auth_user',
   GET_COURSE = 'get_course',
   ADD_STUDENT = 'add_student',
   GET_STUDENTS = 'get_students',
-  GET_STUDENT = 'get_student';
+  GET_STUDENT = 'get_student',
+  SET_AUTHENTICATED = 'set_as_authenticated';

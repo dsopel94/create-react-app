@@ -37,6 +37,7 @@ const SignUpForm = (
       <div className="field-line">
         <label htmlFor="password">Password:</label>
         <input
+          type="password"
           id="password"
           name="password"
           onChange={onChange}

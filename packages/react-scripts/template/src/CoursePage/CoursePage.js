@@ -19,6 +19,7 @@ class CoursePage extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.deleteCourse = this.deleteCourse.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
   }
 
   onClick(event) {
@@ -26,6 +27,10 @@ class CoursePage extends React.Component {
     this.setState({
       isClicked: !this.state.isClicked,
     });
+  }
+
+  handleRedirect(event) {
+    this.props.dispatch(actions.setAsAuthenticated());
   }
 
   handleLogout(event) {
@@ -36,6 +41,7 @@ class CoursePage extends React.Component {
   deleteCourse(event) {
     const id = this.props.match.params.cuid;
     this.props.dispatch(actions.deleteCourse(id));
+    this.props.dispatch(actions.setAsAuthenticated());
     console.log('this is working');
   }
   componentDidMount() {
@@ -70,20 +76,37 @@ class CoursePage extends React.Component {
     return (
       <div className="course-page">
         <div className="nav-options">
-          <Link to="/auth/dashboard">Back to Your Dashboard</Link>
-          <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+          <ul>
+            <li>
+              <Link to={`/addStudent/${this.props.match.params.cuid}`}>
+                Add a new student
+              </Link>
+            </li>
+            <li>
+              <Link to={`/editCourse/${this.props.match.params.cuid}`}>
+                Edit Course Name
+              </Link>
+            </li>
+            <li>
+              <Link to="/auth/dashboard" onClick={this.deleteCourse}>
+                Remove this course
+              </Link>
+            </li>
+            <li>
+              <Link to="/auth/dashboard" onClick={this.handleRedirect}>
+                Back to Your Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+            </li>
+          </ul>
         </div>
         <h1>{this.props.course.name}</h1>
-        <Link to={`/addStudent/${this.props.match.params.cuid}`}>
-          Add a new student
-        </Link>
-        <Link to={`/editCourse/${this.props.match.params.cuid}`}>
-          Edit Course Name
-        </Link>
-        <Link to={'/auth/dashboard'} onClick={this.deleteCourse}>
-          Remove this course
-        </Link>
-        <div className="studentList">Your students{currentStudents} </div>
+        <h2>Your Students</h2>
+        <div className="studentList">
+          {currentStudents}
+        </div>
       </div>
     );
   }

@@ -6,7 +6,7 @@ const ObjectId = Schema.Types.ObjectId;
 const studentSchema = new Schema({
   firstName: String,
   lastName: String,
-  phoneNumber: Number,
+  phoneNumber: String,
   courses: { type: ObjectId, ref: 'Course' },
   streetAddress: String,
   miscAddress: String,

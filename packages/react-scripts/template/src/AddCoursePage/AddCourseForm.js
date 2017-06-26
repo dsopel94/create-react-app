@@ -47,13 +47,20 @@ class AddCoursePage extends React.Component {
     }
     return (
       <form action="/" onSubmit={this.onSubmit}>
-        <div className="nav-options">
-          <Link to="/auth/dashboard">Back to Your Dashboard</Link>
-          <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+        <div className="add-course-header">
+          <h1>Add a Course</h1>
         </div>
-        <div className="container">
+        <div className="add-course-nav-options">
+          <ul>
+            <li><Link to="/auth/dashboard">Back to Your Dashboard</Link></li>
+            <li>
+              <Link to="/login" onClick={this.handleLogout}>Log out </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="add-course-container">
           <div className="submitForm">
-            <div className="field-line">
+            <div className="add-coursename-field-line">
               <label htmlFor="coursename">Course Name:</label>
               <input
                 id="coursename"

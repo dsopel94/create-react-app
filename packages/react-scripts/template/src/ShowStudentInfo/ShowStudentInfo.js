@@ -60,24 +60,26 @@ class ShowStudentInfo extends React.Component {
         </button>
         {this.state.isClicked &&
           <div className="student-info">
-            <p>Name: {this.props.firstName} {this.props.lastName}</p>
-            <p>Phone Number: {this.props.phoneNumber}</p>
-            <p>Street Address: {this.props.streetAddress} </p>
-            <p> Street Address Line 2: {this.props.miscAddress} </p>
-            <button
-              id="edit-student"
-              id={this.props.id}
-              onClick={this.isClickedEdit}
-            >
-              Edit Student Info
-            </button>
-            <button
-              id="delete-student"
-              id={this.props.id}
-              onClick={this.isClickedDelete}
-            >
-              Delete Student
-            </button>
+            <div className="student-info-box">
+              <p>Name: {this.props.firstName} {this.props.lastName}</p>
+              <p>Phone Number: {this.props.phoneNumber}</p>
+              <p>Street Address: {this.props.streetAddress} </p>
+              <p> Street Address Line 2: {this.props.miscAddress} </p>
+              <button
+                id="edit-student"
+                id={this.props.id}
+                onClick={this.isClickedEdit}
+              >
+                Edit Student Info
+              </button>
+              <button
+                id="delete-student"
+                id={this.props.id}
+                onClick={this.isClickedDelete}
+              >
+                Delete Student
+              </button>
+            </div>
           </div>}
       </div>
     );

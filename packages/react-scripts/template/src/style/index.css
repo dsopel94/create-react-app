@@ -70,13 +70,119 @@ button {
   text-align: center;
 }
 
-.addCourseLink {
-  text-align: right;
+
+.dashboard-links, .add-course-nav-options li {
+  display: inline-block;
+  padding-left: 10px
+}
+
+.dashboard-links ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
   margin-top: -30px;
   margin-right: 10px;
-  font-family: Arial;
-  font-size: 17px;
 }
+
+.dashboard-links li {
+  display: inline;
+  padding-left: 8px;
+}
+
+.nav-options li {
+  display: inline;
+  padding-left: 8px;
+}
+
+.course-page h1 {
+  text-align: center;
+}
+
+.studentList html {
+  font-style: Arial;
+  margin-left: 275px;
+}
+
+.course-page h2 {
+  margin-left: 225px
+}
+
+.studentList {
+  margin-left: 220px;
+}
+
+.student-info-box {
+  box-sizing: border-box;
+  border: 1px solid black;
+  width: 50%;
+  margin-bottom: 5px;
+}
+
+.add-course-nav-options, .nav-options ul {
+  list-style-type: none;
+  float: right;
+  margin-top: 0px;
+  margin-right: 20px;
+}
+
+.edit-course-nav-options ul {
+  list-style-type: none;
+  margin-left: 1275px;
+}
+
+.edit-course-nav-options li {
+  padding-left: 7px;
+  display: inline;
+}
+.add-course-nav-options li {
+  margin-top: -55px;
+  margin-right: 3px;
+}
+
+.add-student-nav-options ul {
+  margin-left: 1220px;
+  list-style-type: none;
+}
+.add-student-nav-options li {
+  display: inline;
+  margin-left: 5px;
+}
+
+.add-coursename-field-line {
+  text-align: center;
+  margin-right: 100px;
+}
+
+.add-course-container button {
+  margin-left: 325px;
+  margin-top: 15px;
+}
+
+.info, .add-course-header h1 {
+  text-align: center;
+  color: #778899;
+  margin-left: 46px
+}
+
+.add-course-container {
+  margin-top: 1000px;
+  margin-left:500px;
+  margin: auto;
+  width: 50%;
+}
+
+.add-course-header {
+  margin-top: -20px
+}
+
+.return-link {
+  text-align: center;
+}
+
+.dashboard-links {
+  float: right;
+}
+
 
 .courses {
   margin-left: 686px;

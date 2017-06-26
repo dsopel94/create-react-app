@@ -6,6 +6,7 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
+  SET_AUTHENTICATED,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,6 +25,8 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case AUTH_USER:
       return { ...state, error: '', message: '', authenticated: true };
+    case SET_AUTHENTICATED:
+      return { ...state, authenticated: true };
     case UNAUTH_USER:
       return { ...state, authenticated: false };
     case AUTH_ERROR:
@@ -60,6 +63,7 @@ export default function(state = INITIAL_STATE, action) {
         password: '',
         authenticating: false,
         authenticated: false,
+        error: 'Not a valid username/password combination',
       };
   }
   return state;

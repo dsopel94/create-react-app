@@ -32,8 +32,9 @@ class AppInfoPage extends React.Component {
           was built using Mongoose, Express, and Node. mLab was also used for storage of the
           instructor's data and Passport.js is used for authentication purposes.
         </p>
-
-        <Link to="/login">Click here to return to the login page.</Link>
+        <div className="return-link">
+          <Link to="/login">Click here to return to the login page.</Link>
+        </div>
       </div>
     );
   }
