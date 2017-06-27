@@ -38,7 +38,7 @@
     "settle-promise": "1.0.0",
     "source-map": "0.5.6"
   },
-  "devDependencies": {
+  "dependencies": {
     "babel-cli": "6.24.1",
     "babel-eslint": "7.2.3",
     "babel-preset-react-app": "^3.0.0",

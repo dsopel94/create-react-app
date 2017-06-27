@@ -18,6 +18,7 @@ function setInstructorInfo(request) {
     fullName: request.fullName,
     username: request.username,
     password: request.password,
+    //authenticated: request.authenticated
   };
 }
 
@@ -51,6 +52,7 @@ exports.login = function(req, res, next) {
             username: user.username,
             fullName: user.fullName,
             _id: user._id,
+            //authenticated: user.authenticated
           };
 
           let instructorInfo = setInstructorInfo(currentInstructor);
@@ -75,6 +77,7 @@ exports.register = function(req, res, next) {
   const username = req.body.username;
   const fullName = req.body.fullName;
   const password = req.body.password;
+  //const authenticated = req.body.authenticated
   console.log(req.body);
   // Return error if no email provided
   if (!username) {
@@ -106,6 +109,7 @@ exports.register = function(req, res, next) {
       username: username,
       password: password,
       fullName: fullName,
+      //authenticated: authenticated
     });
 
     instructor.save(function(err, instructor) {

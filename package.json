@@ -15,7 +15,7 @@
     "precommit": "lint-staged"
   },
   "proxy": "http://localhost:3000/",
-  "devDependencies": {
+  "dependencies": {
     "axios": "^0.16.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
@@ -42,14 +42,12 @@
     "husky": "^0.13.2",
     "install": "^0.10.1",
     "jsonwebtoken": "^7.4.1",
-    "lerna": "2.0.0-beta.38",
-    "lerna-changelog": "^0.2.3",
     "lint-staged": "^3.3.1",
     "material-ui": "^0.18.3",
     "moment": "^2.18.1",
     "mongoose": "^4.10.4",
     "morgan": "^1.8.2",
-    "node": "0.0.0",
+    "node": "6.9.4",
     "node-sass": "^4.5.3",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
