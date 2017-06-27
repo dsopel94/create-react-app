@@ -2,10 +2,9 @@
   "private": true,
   "scripts": {
     "build": "node packages/react-scripts/scripts/build.js",
-    "changelog": "lerna-changelog",
     "create-react-app": "tasks/cra.sh",
     "e2e": "tasks/e2e-simple.sh",
-    "postinstall": "lerna bootstrap && cd packages/react-error-overlay/ && npm run build:prod",
+    "postinstall": "cd packages/react-error-overlay/ && npm run build:prod",
     "publish": "tasks/release.sh",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node packages/react-scripts/template/src/server/index.js",
