@@ -52,6 +52,7 @@
     "morgan": "^1.8.2",
     "node": "6.9.4",
     "node-sass": "^4.5.3",
+    "npm": "3.10.10",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-jwt": "^2.2.1",
